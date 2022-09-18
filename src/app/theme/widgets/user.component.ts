@@ -1,17 +1,14 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { debounceTime, tap } from 'rxjs/operators';
-import { AuthService, User } from '@core/authentication';
+import { AccountService } from '@core/auth/account.service';
+import { AuthServerProvider } from '@core/auth/auth-jwt.service';
+import { Account } from '@core/auth/account.model';
 
 @Component({
   selector: 'app-user',
   template: `
-    <button
-      class="matero-toolbar-button matero-avatar-button"
-      mat-button
-      [matMenuTriggerFor]="menu"
-    >
-      <span class="matero-username" fxHide.lt-sm>{{ user.name }}</span>
+    <button class="matero-toolbar-button matero-avatar-button" mat-button [matMenuTriggerFor]="menu">
+      <span class="matero-username" fxHide.lt-sm>{{ account?.firstName }}{{ account?.lastName }}</span>
     </button>
 
     <mat-menu #menu="matMenu">
@@ -27,21 +24,19 @@ import { AuthService, User } from '@core/authentication';
   `,
 })
 export class UserComponent implements OnInit {
-  user!: User;
+  account: Account | undefined;
 
-  constructor(private router: Router, private auth: AuthService, private cdr: ChangeDetectorRef) {}
+  constructor(private router: Router, private accountService: AccountService, private auth: AuthServerProvider) {}
 
   ngOnInit(): void {
-    this.auth
-      .user()
-      .pipe(
-        tap(user => (this.user = user)),
-        debounceTime(10)
-      )
-      .subscribe(() => this.cdr.detectChanges());
+    this.accountService.identity().subscribe(acc => {
+      if (acc) {
+        this.account = acc;
+      }
+    });
   }
 
-  logout() {
+  logout(): void {
     this.auth.logout().subscribe(() => this.router.navigateByUrl('/auth/login'));
   }
 }

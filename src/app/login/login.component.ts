@@ -6,7 +6,7 @@ import { LoginService } from 'app/login/login.service';
 import { AccountService } from 'app/core/auth/account.service';
 
 @Component({
-  selector: 'jhi-login',
+  selector: 'app-login',
   templateUrl: './login.component.html',
 })
 export class LoginComponent implements OnInit, AfterViewInit {
@@ -16,9 +16,18 @@ export class LoginComponent implements OnInit, AfterViewInit {
   authenticationError = false;
 
   loginForm = new FormGroup({
-    username: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    password: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    rememberMe: new FormControl(false, { nonNullable: true, validators: [Validators.required] }),
+    username: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    password: new FormControl('', {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
+    rememberMe: new FormControl(false, {
+      nonNullable: true,
+      validators: [Validators.required],
+    }),
   });
 
   constructor(private accountService: AccountService, private loginService: LoginService, private router: Router) {}

@@ -1,19 +1,16 @@
 <mat-toolbar class="matero-toolbar">
-  <button mat-icon-button class="matero-toolbar-button" *ngIf="showToggle"
-          (click)="toggleSidenav.emit()">
+  <button mat-icon-button class="matero-toolbar-button" *ngIf="showToggle" (click)="toggleSidenav.emit()">
     <mat-icon>menu</mat-icon>
   </button>
 
   <app-branding *ngIf="showBranding"></app-branding>
   <span fxFlex></span>
 
-  <button mat-icon-button class="matero-toolbar-button" fxHide.lt-sm
-          (click)="toggleFullscreen()">
+  <button mat-icon-button class="matero-toolbar-button" fxHide.lt-sm (click)="toggleFullscreen()">
     <mat-icon>fullscreen</mat-icon>
   </button>
 
   <app-translate></app-translate>
 
   <app-user></app-user>
-
 </mat-toolbar>

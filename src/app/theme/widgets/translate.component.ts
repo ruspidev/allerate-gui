@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { SettingsService } from '@core';
+import { SettingsService } from '@core/bootstrap/settings.service';
 
 @Component({
   selector: 'app-translate',
@@ -27,7 +27,7 @@ export class TranslateComponent {
     translate.addLangs(['de-ch', 'fr-CH']);
   }
 
-  useLanguage(language: string) {
+  useLanguage(language: string): void {
     this.translate.use(language);
     this.settings.setLanguage(language);
   }

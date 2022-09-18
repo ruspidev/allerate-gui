@@ -54,14 +54,14 @@ export class MenuService {
   }
 
   /** Add one item to the menu data. */
-  add(menu: Menu) {
+  add(menu: Menu): void {
     const tmpMenu = this.menu$.value;
     tmpMenu.push(menu);
     this.menu$.next(tmpMenu);
   }
 
   /** Reset the menu data. */
-  reset() {
+  reset(): void {
     this.menu$.next([]);
   }
 
@@ -139,7 +139,7 @@ export class MenuService {
   }
 
   /** Add namespace for translation. */
-  addNamespace(menu: Menu[] | MenuChildrenItem[], namespace: string) {
+  addNamespace(menu: Menu[] | MenuChildrenItem[], namespace: string): void {
     menu.forEach(menuItem => {
       menuItem.name = `${namespace}.${menuItem.name}`;
       if (menuItem.children && menuItem.children.length > 0) {

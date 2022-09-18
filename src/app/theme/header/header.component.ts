@@ -1,15 +1,9 @@
-import {
-  Component,
-  Output,
-  EventEmitter,
-  Input,
-  ChangeDetectionStrategy,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, Output, EventEmitter, Input, ChangeDetectionStrategy, ViewEncapsulation } from '@angular/core';
 import screenfull from 'screenfull';
 
 @Component({
   selector: 'app-header',
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'matero-header',
   },
@@ -24,7 +18,7 @@ export class HeaderComponent {
 
   @Output() toggleSidenav = new EventEmitter<void>();
 
-  toggleFullscreen() {
+  toggleFullscreen(): void {
     if (screenfull.isEnabled) {
       screenfull.toggle();
     }

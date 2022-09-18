@@ -15,21 +15,20 @@ import { filter } from 'rxjs/operators';
 import { BreakpointObserver, MediaMatcher } from '@angular/cdk/layout';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { MatSidenav, MatSidenavContent } from '@angular/material/sidenav';
-import { SettingsService } from '@theme/services/settings.service';
 import { AppSettings } from '@theme/model/settings';
+import { SettingsService } from '@core/bootstrap/settings.service';
 
 const MOBILE_MEDIAQUERY = 'screen and (max-width: 599px)';
-const TABLET_MEDIAQUERY =
-  'screen and (min-width: 600px) and (max-width: 959px)';
+const TABLET_MEDIAQUERY = 'screen and (min-width: 600px) and (max-width: 959px)';
 const MONITOR_MEDIAQUERY = 'screen and (min-width: 960px)';
 
 @Component({
-  selector: 'app-admin-layout',
-  templateUrl: './admin-layout.component.html',
-  styleUrls: ['./admin-layout.component.scss'],
+  selector: 'app-main-layout',
+  templateUrl: './main-layout.component.html',
+  styleUrls: ['./main-layout.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class AdminLayoutComponent implements OnDestroy {
+export class MainLayoutComponent implements OnDestroy {
   @ViewChild('sidenav', { static: true }) sidenav!: MatSidenav;
   @ViewChild('content', { static: true }) content!: MatSidenavContent;
 
@@ -45,23 +44,14 @@ export class AdminLayoutComponent implements OnDestroy {
 
   @HostBinding('class.matero-content-width-fix')
   get contentWidthFix(): boolean {
-    return (
-      this.isContentWidthFixed &&
-      this.options.navPos === 'side' &&
-      this.options.sidenavOpened &&
-      !this.isOver
-    );
+    return this.isContentWidthFixed && this.options.navPos === 'side' && this.options.sidenavOpened && !this.isOver;
   }
 
   private isContentWidthFixed = true;
 
   @HostBinding('class.matero-sidenav-collapsed-fix')
   get collapsedWidthFix(): boolean {
-    return (
-      this.isCollapsedWidthFixed &&
-      (this.options.navPos === 'top' ||
-        (this.options.sidenavOpened && this.isOver))
-    );
+    return this.isCollapsedWidthFixed && (this.options.navPos === 'top' || (this.options.sidenavOpened && this.isOver));
   }
 
   private isCollapsedWidthFixed = false;
@@ -86,14 +76,12 @@ export class AdminLayoutComponent implements OnDestroy {
         this.isContentWidthFixed = state.breakpoints[MONITOR_MEDIAQUERY];
       });
 
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        if (this.isOver) {
-          this.sidenav.close().then();
-        }
-        this.content.scrollTo({ top: 0 });
-      });
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
+      if (this.isOver) {
+        this.sidenav.close().then();
+      }
+      this.content.scrollTo({ top: 0 });
+    });
 
     if (this.options.theme === 'auto') {
       this.setAutoTheme();
@@ -130,12 +118,8 @@ export class AdminLayoutComponent implements OnDestroy {
 
   setAutoTheme(): void {
     // Check whether the browser support `prefers-color-scheme`
-    if (
-      this.mediaMatcher.matchMedia('(prefers-color-scheme)').media !== 'not all'
-    ) {
-      const isSystemDark = this.mediaMatcher.matchMedia(
-        '(prefers-color-scheme: dark)'
-      ).matches;
+    if (this.mediaMatcher.matchMedia('(prefers-color-scheme)').media !== 'not all') {
+      const isSystemDark = this.mediaMatcher.matchMedia('(prefers-color-scheme: dark)').matches;
       // Set theme to dark if `prefers-color-scheme` is dark. Otherwise, set it to light.
       this.options.theme = isSystemDark ? 'dark' : 'light';
     } else {

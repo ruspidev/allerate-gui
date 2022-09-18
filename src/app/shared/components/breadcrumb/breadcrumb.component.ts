@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { MenuService } from '@core/bootstrap/menu.service';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'breadcrumb',
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.scss'],
@@ -13,7 +14,7 @@ export class BreadcrumbComponent implements OnInit {
 
   constructor(private router: Router, private menu: MenuService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.nav = Array.isArray(this.nav) ? this.nav : [];
 
     if (this.nav.length === 0) {
@@ -25,7 +26,7 @@ export class BreadcrumbComponent implements OnInit {
     return navlink;
   }
 
-  genBreadcrumb() {
+  genBreadcrumb(): void {
     const routes = this.router.url.slice(1).split('/');
     this.nav = this.menu.getLevel(routes);
     this.nav.unshift('home');

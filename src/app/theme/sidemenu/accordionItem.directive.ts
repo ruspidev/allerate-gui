@@ -3,6 +3,7 @@ import { Directive, HostBinding, Inject, Input, OnInit, OnDestroy } from '@angul
 import { AccordionDirective } from './accordion.directive';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[navAccordionItem]',
 })
 export class AccordionItemDirective implements OnInit, OnDestroy {
@@ -17,6 +18,7 @@ export class AccordionItemDirective implements OnInit, OnDestroy {
   get open(): boolean {
     return this.OPEN;
   }
+
   set open(value: boolean) {
     // Only sub menu can be open
     this.OPEN = this.type === 'sub' && value;

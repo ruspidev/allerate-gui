@@ -1,12 +1,9 @@
-import {NgModule} from '@angular/core';
+import { NgModule } from '@angular/core';
 
-import {MtxDrawerModule} from '@ng-matero/extensions/drawer';
+import { MtxDrawerModule } from '@ng-matero/extensions/drawer';
 
 @NgModule({
-    exports: [
-        MtxDrawerModule,
-    ],
-    providers: [],
+  exports: [MtxDrawerModule],
+  providers: [],
 })
-export class MaterialExtensionsModule {
-}
+export class MaterialExtensionsModule {}

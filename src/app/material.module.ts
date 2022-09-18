@@ -14,13 +14,10 @@ import {
   MatRippleModule,
   MAT_DATE_FORMATS,
   MAT_DATE_LOCALE,
+  NativeDateAdapter,
 } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {
-  MatDialogConfig,
-  MatDialogModule,
-  MAT_DIALOG_DEFAULT_OPTIONS,
-} from '@angular/material/dialog';
+import { MatDialogConfig, MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -45,7 +42,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatTreeModule } from '@angular/material/tree';
-import { MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { PaginatorI18nService } from '@shared/services/paginator-i18n.service';
 
@@ -61,7 +57,6 @@ import { PaginatorI18nService } from '@shared/services/paginator-i18n.service';
     MatChipsModule,
     MatStepperModule,
     MatDatepickerModule,
-    MatMomentDateModule,
     MatDialogModule,
     MatDividerModule,
     MatExpansionModule,
@@ -108,17 +103,17 @@ import { PaginatorI18nService } from '@shared/services/paginator-i18n.service';
     },
     {
       provide: DateAdapter,
-      useClass: MomentDateAdapter,
+      useClass: NativeDateAdapter,
       deps: [MAT_DATE_LOCALE],
     },
     {
       provide: MAT_DATE_FORMATS,
       useValue: {
         parse: {
-          dateInput: 'YYYY-MM-DD',
+          dateInput: 'DD.MM.YYYY',
         },
         display: {
-          dateInput: 'YYYY-MM-DD',
+          dateInput: 'DD.MM.YYYY',
           monthYearLabel: 'YYYY MMM',
           dateA11yLabel: 'LL',
           monthYearA11yLabel: 'YYYY MMM',

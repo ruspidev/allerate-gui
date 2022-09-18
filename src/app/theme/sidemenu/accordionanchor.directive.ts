@@ -3,6 +3,7 @@ import { Directive, HostListener, Inject } from '@angular/core';
 import { AccordionItemDirective } from './accordionItem.directive';
 
 @Directive({
+  // eslint-disable-next-line @angular-eslint/directive-selector
   selector: '[navAccordionToggle]',
 })
 export class AccordionAnchorDirective {
@@ -13,7 +14,8 @@ export class AccordionAnchorDirective {
   }
 
   @HostListener('click', ['$event'])
-  onClick(e: MouseEvent) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onClick(e: MouseEvent): void {
     this.navlink.toggle();
   }
 }

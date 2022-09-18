@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from '@shared/shared.module';
 
-import { AdminLayoutComponent } from './admin-layout/admin-layout.component';
-import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
+import { MainLayoutComponent } from './admin-layout/main-layout.component';
+import { BlankLayoutComponent } from './blank-layout/blank-layout.component';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { UserPanelComponent } from './sidebar/user-panel.component';
@@ -21,11 +21,12 @@ import { TranslateComponent } from './widgets/translate.component';
 import { UserComponent } from './widgets/user.component';
 
 import { CustomizerComponent } from './customizer/customizer.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
-    AdminLayoutComponent,
-    AuthLayoutComponent,
+    MainLayoutComponent,
+    BlankLayoutComponent,
     SidebarComponent,
     UserPanelComponent,
     SidemenuComponent,
@@ -40,6 +41,6 @@ import { CustomizerComponent } from './customizer/customizer.component';
     UserComponent,
     CustomizerComponent,
   ],
-  imports: [SharedModule],
+  imports: [SharedModule, CommonModule],
 })
 export class ThemeModule {}

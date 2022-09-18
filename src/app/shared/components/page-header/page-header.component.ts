@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewEncapsulation, Input } from '@angular/core';
-import { MenuService } from '@core/bootstrap/menu.service';
 import { Router } from '@angular/router';
 import { BooleanInput, coerceBooleanProperty } from '@angular/cdk/coercion';
+import { MenuService } from '@core/bootstrap/menu.service';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'page-header',
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'matero-page-header',
   },
@@ -17,7 +19,7 @@ export class PageHeaderComponent implements OnInit {
   @Input() subtitle = '';
   @Input() nav: string[] = [];
   @Input()
-  get hideBreadcrumb() {
+  get hideBreadcrumb(): boolean {
     return this._hideBreadCrumb;
   }
   set hideBreadcrumb(value: boolean) {
@@ -27,7 +29,7 @@ export class PageHeaderComponent implements OnInit {
 
   constructor(private router: Router, private menu: MenuService) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.nav = Array.isArray(this.nav) ? this.nav : [];
 
     if (this.nav.length === 0) {
@@ -37,7 +39,7 @@ export class PageHeaderComponent implements OnInit {
     this.title = this.title || this.nav[this.nav.length - 1];
   }
 
-  genBreadcrumb() {
+  genBreadcrumb(): void {
     const routes = this.router.url.slice(1).split('/');
     this.nav = this.menu.getLevel(routes);
     this.nav.unshift('home');

@@ -25,8 +25,8 @@ export class AccountService {
     private applicationConfigService: ApplicationConfigService
   ) {}
 
-  save(account: Account): Observable<{}> {
-    return this.http.post(this.applicationConfigService.getEndpointFor('api/account'), account);
+  save(account: Account): Observable<void> {
+    return this.http.post<void>(this.applicationConfigService.getEndpointFor('api/account'), account);
   }
 
   authenticate(identity: Account | null): void {
@@ -86,7 +86,7 @@ export class AccountService {
     const previousUrl = this.stateStorageService.getUrl();
     if (previousUrl) {
       this.stateStorageService.clearUrl();
-      this.router.navigateByUrl(previousUrl);
+      this.router.navigateByUrl(previousUrl).then();
     }
   }
 }

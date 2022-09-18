@@ -1,7 +1,8 @@
 import { Component, Output, EventEmitter, ViewEncapsulation, TemplateRef } from '@angular/core';
-import { AppSettings, SettingsService } from '@core';
 import { CdkDragStart } from '@angular/cdk/drag-drop';
 import { MtxDrawer, MtxDrawerRef } from '@ng-matero/extensions/drawer';
+import { AppSettings } from '@theme/model/settings';
+import { SettingsService } from '@core/bootstrap/settings.service';
 
 @Component({
   selector: 'app-customizer',
@@ -20,11 +21,12 @@ export class CustomizerComponent {
 
   constructor(private settings: SettingsService, private drawer: MtxDrawer) {}
 
-  onDragStart(event: CdkDragStart) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onDragStart(event: CdkDragStart): void {
     this.dragging = true;
   }
 
-  openPanel(templateRef: TemplateRef<any>) {
+  openPanel(templateRef: TemplateRef<any>): void {
     if (this.dragging) {
       this.dragging = false;
       return;
@@ -36,11 +38,11 @@ export class CustomizerComponent {
     });
   }
 
-  closePanel() {
+  closePanel(): void {
     this.drawerRef?.dismiss();
   }
 
-  sendOptions() {
+  sendOptions(): void {
     this.optionsChange.emit(this.options);
   }
 }

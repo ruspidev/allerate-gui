@@ -1,8 +1,8 @@
 import { Component, OnDestroy, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, Router, RouterLinkActive } from '@angular/router';
-import { Menu, MenuService } from '@core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { Menu, MenuService } from '@core/bootstrap/menu.service';
 
 export interface TopmenuState {
   active: boolean;
@@ -11,6 +11,7 @@ export interface TopmenuState {
 
 @Component({
   selector: 'app-topmenu',
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
     class: 'matero-topmenu',
   },
@@ -40,18 +41,16 @@ export class TopmenuComponent implements OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.menuSubscription.unsubscribe();
     this.routerSubscription?.unsubscribe();
   }
 
-  onRouteChange(rla: RouterLinkActive, index: number) {
+  onRouteChange(rla: RouterLinkActive, index: number): void {
     this.routerSubscription?.unsubscribe();
-    this.routerSubscription = this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(e => {
-        this.menuStates.forEach(item => (item.active = false));
-        setTimeout(() => (this.menuStates[index].active = rla.isActive));
-      });
+    this.routerSubscription = this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
+      this.menuStates.forEach(item => (item.active = false));
+      setTimeout(() => (this.menuStates[index].active = rla.isActive));
+    });
   }
 }

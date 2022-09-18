@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
-import { LangChangeEvent, TranslateService } from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +9,10 @@ export class PaginatorI18nService {
   paginatorIntl = new MatPaginatorIntl();
 
   constructor(private translate: TranslateService) {
-    this.translate.onLangChange.subscribe((event: LangChangeEvent) => this.getPaginatorIntl());
+    this.translate.onLangChange.subscribe(() => this.getPaginatorIntl());
   }
 
-  getPaginatorIntl() {
+  getPaginatorIntl(): MatPaginatorIntl {
     this.paginatorIntl.itemsPerPageLabel = this.translate.instant('paginator.items_per_page_label');
     this.paginatorIntl.previousPageLabel = this.translate.instant('paginator.previous_page_label');
     this.paginatorIntl.nextPageLabel = this.translate.instant('paginator.next_page_label');
@@ -33,8 +33,7 @@ export class PaginatorI18nService {
 
     const startIndex = page * pageSize;
     // If the start index exceeds the list length, do not try and fix the end index to the end.
-    const endIndex =
-      startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
+    const endIndex = startIndex < length ? Math.min(startIndex + pageSize, length) : startIndex + pageSize;
 
     return this.translate.instant('paginator.range_page_label_2', {
       startIndex: startIndex + 1,

@@ -16,14 +16,14 @@ export class SettingsService {
     return this.options;
   }
 
-  setOptions(options: AppSettings) {
+  setOptions(options: AppSettings): void {
     this.options = Object.assign(defaults, options);
     this.notify$.next(this.options);
   }
 
   private options = defaults;
 
-  getLanguage() {
+  getLanguage(): string {
     return this.options.language;
   }
 
