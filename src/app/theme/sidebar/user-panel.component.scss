@@ -1,0 +1,29 @@
+@use '../style/transitions';
+
+.allerate-user-panel {
+  padding: 16px 0;
+}
+
+.allerate-user-panel-name,
+.allerate-user-panel-email {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-weight: normal;
+}
+
+.allerate-user-panel-name,
+.allerate-user-panel-email,
+.allerate-user-panel-icons {
+  opacity: 1;
+  transition: transitions.swift-ease-out(opacity);
+}
+
+.allerate-user-panel-icons {
+  white-space: nowrap;
+
+  .mat-icon-button {
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+  }
+}
